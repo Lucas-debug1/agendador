@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agendei — Agende onde quiser</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="topbar-logo" href="#" onclick="ir('home')">
+      Agendei<span>.</span>
+    </a>
+    <nav class="topbar-nav" id="nav"></nav>
+  </header>
+  <div id="pg-home" class="page active">
+    <section class="hero">
+      <h1>Agende seu horário<br>com <em>facilidade</em></h1>
+      <p>Salões, barbearias, clínicas e consultórios num só lugar. Escolha, agende e pague sem sair de casa.</p>
+      <div class="hero-actions">
+        <button class="btn btn-green" onclick="ir('explorar'); carregarNegocios()">
+          Explorar negócios
+        </button>
+        <button class="btn btn-outline" onclick="abrirModal('registro')">
+          Cadastrar meu negócio
+        </button>
+      </div>
+    </section>
+    <div class="tipos">
+      <div class="tipo-card" onclick="ir('explorar'); filtrar(this, 'salao'); document.querySelector('[data-tipo=salao]')?.classList.add('active')">
+        <h3>Salões de beleza</h3>
+        <p>Cabelo, manicure e estética</p>
+      </div>
+      <div class="tipo-card" onclick="ir('explorar'); filtrar(this, 'barbearia')">
+        <h3>Barbearias</h3>
+        <p>Corte, barba e acabamento</p>
+      </div>
+      <div class="tipo-card" onclick="ir('explorar'); filtrar(this, 'clinica')">
+        <h3>Clínicas</h3>
+        <p>Exames e especialidades</p>
+      </div>
+      <div class="tipo-card" onclick="ir('explorar'); filtrar(this, 'consultorio')">
+        <h3>Consultórios</h3>
+        <p>Médicos e terapeutas</p>
+      </div>
+    </div>
+  </div>
+  <div id="pg-explorar" class="page">
+    <div class="container">
+      <h2 class="section-title">Explorar negócios</h2>
+      <div class="filters">
+        <button class="filter-btn active" data-tipo="" onclick="filtrar(this, '')">Todos</button>
+        <button class="filter-btn" data-tipo="salao"       onclick="filtrar(this, 'salao')">💇 Salões</button>
+        <button class="filter-btn" data-tipo="barbearia"   onclick="filtrar(this, 'barbearia')">💈 Barbearias</button>
+        <button class="filter-btn" data-tipo="clinica"     onclick="filtrar(this, 'clinica')">🏥 Clínicas</button>
+        <button class="filter-btn" data-tipo="consultorio" onclick="filtrar(this, 'consultorio')">🩺 Consultórios</button>
+      </div>
+      <div class="negocios-grid" id="negocios-grid">
+        <p style="color:var(--muted)">Clique em explorar para carregar...</p>
+      </div>
+    </div>
+  </div>
+  <div id="pg-detalhe" class="page">
+    <div id="detalhe-header" style="padding:24px;max-width:960px;margin:0 auto"></div>
+    <div id="detalhe-body"   class="detalhe-body"></div>
+  </div>
+  <div id="pg-agendamentos" class="page">
+    <div class="container">
+      <h2 class="section-title">Meus agendamentos</h2>
+      <div id="lista-agendamentos"></div>
+    </div>
+  </div>
+  <div class="overlay" id="overlay" onclick="if(event.target===this)fecharModal()">
+    <div class="modal">
+      <button class="modal-close" onclick="fecharModal()">✕</button>
+      <div class="modal-tabs">
+        <button class="modal-tab active" data-aba="login"   onclick="trocarAba('login')">Entrar</button>
+        <button class="modal-tab"        data-aba="registro" onclick="trocarAba('registro')">Criar conta</button>
+      </div>
+      <form id="form-login" onsubmit="fazerLogin(event)">
+        <div class="form-group">
+          <label>E-mail</label>
+          <input id="l-email" type="email" placeholder="seu@email.com" required>
+        </div>
+        <div class="form-group">
+          <label>Senha</label>
+          <input id="l-senha" type="password" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn-agendar">Entrar</button>
+      </form>
+      <form id="form-registro" onsubmit="fazerRegistro(event)" style="display:none">
+        <div class="form-group">
+          <label>Nome completo</label>
+          <input id="r-nome" type="text" placeholder="Seu nome" required>
+        </div>
+        <div class="form-group">
+          <label>E-mail</label>
+          <input id="r-email" type="email" placeholder="seu@email.com" required>
+        </div>
+        <div class="form-group">
+          <label>Senha</label>
+          <input id="r-senha" type="password" placeholder="Mínimo 6 caracteres" minlength="6" required>
+        </div>
+        <div class="form-group">
+          <label>Tipo de conta</label>
+          <select id="r-tipo">
+            <option value="cliente">Cliente — quero agendar serviços</option>
+            <option value="dono">Negócio — quero oferecer serviços</option>
+          </select>
+        </div>
+        <button type="submit" class="btn-agendar">Criar conta</button>
+      </form>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+  <script src="/js/app.js"></script>
+</body>
+</html>
