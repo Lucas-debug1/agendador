@@ -2,10 +2,10 @@
   "name": "agendei",
   "version": "1.0.0",
   "description": "Plataforma de agendamento para salões, barbearias e clínicas",
-  "main": "backend/server.js",
+  "main": "Backend/server.js",
   "scripts": {
-    "start": "node backend/server.js",
-    "dev": "nodemon backend/server.js"
+    "start": "node Backend/server.js",
+    "dev": "nodemon Backend/server.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -13,7 +13,7 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
-    "mysql2": "^3.10.1"
+    "pg": "^8.20.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.4"

@@ -1,12 +1,9 @@
 const jwt = require('jsonwebtoken');
-
 function autenticar(req, res, next) {
   const header = req.headers['authorization'];
   if (!header) return res.status(401).json({ erro: 'Token não fornecido.' });
-
-  const token = header.split(' ')[1]; // Bearer <token>
+  const token = header.split(' ')[1];
   if (!token) return res.status(401).json({ erro: 'Token inválido.' });
-
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
     req.usuario = payload;
@@ -15,7 +12,6 @@ function autenticar(req, res, next) {
     return res.status(401).json({ erro: 'Token expirado ou inválido.' });
   }
 }
-
 function autorizar(...tipos) {
   return (req, res, next) => {
     if (!tipos.includes(req.usuario.tipo)) {
@@ -24,5 +20,4 @@ function autorizar(...tipos) {
     next();
   };
 }
-
 module.exports = { autenticar, autorizar };
